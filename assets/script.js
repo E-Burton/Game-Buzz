@@ -1,4 +1,26 @@
-// VARIABLE DECLARATIONS
+// modal event listener
+// document.addEventListener('DOMContentLoaded', function () {
+//     var elems = document.querySelectorAll('.modal');
+//     var instances = M.Modal.init(elems, options);
+//     // global variables for modal
+//     var modal = document.getElementById("ageModal");
+//     var verifyBtn = document.getElementById("ageBtn");
+//     var spanClose = document.getElementById("close");
+
+//     // open modal
+//     verifyBtn.onclick = ageVerify()
+//     // age verifying function
+//     function ageVerify() {
+//         var not21;
+//         not21 = Number(document.getElementById("age").value);
+//         if (not21 < 21) {
+//             window.location.replace("https://www.reddit.com/r/DrinkingGames/comments/efwv59/non_alcoholic_drinks_for_drinking_games/");
+//         } else {
+//             function letsDrink();
+//         }
+//     }
+
+// API & Question VARIABLE DECLARATIONS
 
 var apiKey = "dc3b8a109d374b3399567c09cabd5e3e";
 var gameQuestions = [
@@ -126,3 +148,21 @@ displayQuestions();
 // Narrow down by genre
 // Randomly generate game from options
 // Create/Add image to buttons for questions
+
+// function drawBackground() {
+//     context.strokeStyle = '#001900';
+//     for (let i = 0; i <= canvas.width / unit + 2; i += 2) {
+//       for (let j = 0; j <= canvas.height / unit + 2; j += 2) {
+//         context.strokeRect(0, 0, unit * i, unit * j);
+//       };
+//     };
+//     context.strokeStyle = '#000000';
+//     context.lineWidth = 2;
+//     for (let i = 1; i <= canvas.width / unit; i += 2) {
+//       for (let j = 1; j <= canvas.height / unit; j += 2) {
+//         context.strokeRect(0, 0, unit * i, unit * j);
+//       };
+//     };
+//     context.lineWidth = 1;
+//   };
+//   drawBackground();
