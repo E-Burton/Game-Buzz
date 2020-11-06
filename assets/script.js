@@ -20,30 +20,35 @@
 //         }
 //     }
 
-// API & Question VARIABLE DECLARATIONS
+// VARIABLE DECLARATIONS for Game Questions and API's
 
 var apiKey = "dc3b8a109d374b3399567c09cabd5e3e";
 var apiUrl = "https://www.thecocktaildb.com/api/json/v1/1/filter.php?i="
 var gameQuestions = [
     {
         q: "Which platform do you prefer?",
-        c: ["Dreamcast", "Genesis", "GameCube", "Atari"]
+        c: ["Dreamcast", "Genesis", "GameCube", "Atari 5200"],
+        src: ["https://cdn.pixabay.com/photo/2017/04/04/18/05/video-game-console-2202546__340.jpg", "https://cdn.pixabay.com/photo/2017/04/04/18/13/video-game-console-2202623__340.jpg", "https://cdn.pixabay.com/photo/2017/04/04/18/06/video-game-console-2202554__340.jpg", "https://cdn.pixabay.com/photo/2017/04/04/18/03/video-game-console-2202527__340.jpg"]
     },
     {
         q: "How do you like to eat your potatoes?",
-        c: ["Mashed", "French Fries", "Potato Skins", "Baked"]
+        c: ["Mashed", "French Fries", "Potato Skins", "Baked"],
+        src: ["https://media.istockphoto.com/photos/homemade-thanksgiving-garlic-mashed-potatoes-picture-id1186406905?b=1&k=6&m=1186406905&s=170667a&w=0&h=7anpkAh9DRXF3hy8vyssBEWDke9wKiBNVi8r6USBqOc=", "https://cdn.pixabay.com/photo/2015/09/05/01/05/french-fries-923687__340.jpg", "https://t3.ftcdn.net/jpg/02/45/50/44/240_F_245504412_jkRGg18QgbCIG7wrgSMJumxzLI0ib53B.jpg", "https://cdn.pixabay.com/photo/2014/11/08/17/01/baked-potato-522482__340.jpg"]
     },
     {
         q: "Which video game character would you want to have a drink with?",
-        c: ["Ms. Pac-Man", "Leon", "Bowser", "Sonic"]
+        c: ["Ms. Pac-Man", "Leon", "Bowser", "Sonic"],
+        src: ["https://image.shutterstock.com/image-photo/phoenix-azusa-july-18-2020-600w-1787524028.jpg", "https://cdn.pixabay.com/photo/2017/07/28/23/18/coming-soon-2550190__340.jpg", "https://image.shutterstock.com/image-photo/osaka-japan-09092019-browser-link-600w-1526701268.jpg", "https://image.shutterstock.com/image-photo/tokyo-japan-04082017-sonics-fulllength-600w-1600352524.jpg"]
     },
     {
         q: "Do you think that Carol Baskin killed her husband?",
-        c: ["Yes", "No"]
+        c: ["Yes", "No"],
+        src: ["https://cdn.pixabay.com/photo/2015/01/09/07/43/yes-593834__340.jpg", "https://images.unsplash.com/photo-1547751550-b62e1c2e9770?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60"]
     },
     {
         q: "Pick your poison!?",
-        c: ["Gin", "Rum", "Tequila", "Vodka"]
+        c: ["Gin", "Rum", "Tequila", "Vodka"],
+        src: ["https://cdn.pixabay.com/photo/2015/03/03/22/23/hendricks-658003__340.jpg", "https://cdn.pixabay.com/photo/2017/11/12/17/36/rum-2943237_960_720.jpg", "https://cdn.pixabay.com/photo/2017/06/21/23/58/tequila-2429114_960_720.jpg", "https://cdn.pixabay.com/photo/2016/07/13/20/59/vodka-1515544_960_720.jpg"]
     }
 ]
 
@@ -55,49 +60,70 @@ var userDrink;
 
 var questionTitle = $("#questionTitle");
 var questionChoices = $("#questionChoices");
+var startGame = $("#startGame");
 
 var currentIndex = 0;
 var userSelection = [];
 
-// API Call to list all genres available
-// $.ajax({
-//     url: "https://api.rawg.io/api/genres?key=" + apiKey,
-//     success: function (data) {
-//         console.log(data);
-//     }
-// })
-
-
-// API call to retrieve platforms and save array of games for selected platform in respective array variable
-$.ajax({
-    url: "https://api.rawg.io/api/platforms?key=" + apiKey,
-    success: function (data) {
-        console.log(data);
-        dreamcast = data.results[45].games;
-        genesis = data.results[40].games;
-        gameCube = data.results[22].games;
-        atari = data.results[33].games;
-    }
-})
+// Adding event listener for when startGame (i.e. Let's Drink) button is clicked
+startGame.on("click", function() {
+    // API call to retrieve platforms and save array of games for selected platform in respective array variable
+    $.ajax({
+        url: "https://api.rawg.io/api/platforms?key=" + apiKey,
+        success: function (data) {
+            console.log(data);
+            dreamcast = data.results[45].games;
+            genesis = data.results[40].games;
+            gameCube = data.results[22].games;
+            atari = data.results[33].games;
+        }
+    })
+    startGame.css("visibility", "hidden"); // Hide startGame (Let's Drink) button
+    setTimeout(displayQuestions, 300); // Call function dsiplayQuestions after 1 second
+});
 
 // Display game questions and choices
 function displayQuestions() {
     var currentQuestion = gameQuestions[currentIndex];
     questionTitle.text(currentQuestion.q); // Setting questionTitle content equal to current index in gameQuestions array
     questionChoices.text(""); // Setting questionChoices content to empty string
-    // Creating buttons for all answer choices for current question
+    // Creating buttons with images and caption for all answer choices for current question
     $.each(currentQuestion.c, function (index, choice) {
         var choiceButton = $("<button>");
+        var buttonFigure = $("<figure>");
+        var buttonImg = $("<img>");
+        var figCaption = $("<figcaption>");
         choiceButton.attr("class", "waves-effect waves-light btn"); // Setting class attribute for choiceButton element
-        choiceButton.css("marginBottom", "4px"); // Setting bottom margin for choiceButton element
-        choiceButton.text(choice); // Setting content of choiceButton to display the value for the current index in gameQuestions array
-        questionChoices.append(choiceButton); // Adding choiceButton to HTML document
-        questionChoices.append($("<br>"));; // Creating and appending line break between choiceButtons's
+        // Setting height and width styling for buttonImg element
+        buttonImg.css({
+            maxHeight: "200px",
+            maxWidth: "350px",
+            height: "auto",
+            width: "auto"
+        }); 
+        // Setting height, width, margin, and background styling for choiceButton element
+        choiceButton.css({
+            height: "300px",
+            width: '500px',
+            marginBottom: "8px",
+            marginRight: "8px",
+            backgroundColor: "black"
+        })
+        buttonImg.attr({
+            src: currentQuestion.src[index],
+            alt: "Choice Image"
+        })
+        // choiceButton.text(choice); // Setting content of choiceButton to display the value for the current index in gameQuestions array
+
+        figCaption.text(choice); // Setting figCaption element text content equal to choice (i.e. index value) for current index in currentQuestions.c array
+        buttonFigure.append(buttonImg); // Append buttonImg element to buttonFigure element
+        buttonFigure.append(figCaption); // Append figCaption element to buttonFigure element
+        choiceButton.append(buttonFigure); // Append buttonFigure element to choiceButton
+        questionChoices.append(choiceButton); // Append choiceButton element to HTML document
 
         // When choiceButton is clicked for current question save text value of button in userSelection array
         choiceButton.on("click", function () {
             userSelection.push($(this).text());
-            console.log(userSelection);
             setTimeout(nextQuestion, 500); // Call function nextQuestion after 0.5 seconds
         });
     })
@@ -110,12 +136,16 @@ function nextQuestion() {
         currentIndex += 1;
         displayQuestions();
     } else {
+        // Set var userDrink equal to value for index 4 in userSelection array (i.e. question five for alchol choice)
         userDrink = userSelection[4];
-        gameEnded();
+        gameEnded(); // Call function gameEnded once all questions have been displayed
     }
 }
 
+// Create function called gameEnded
 function gameEnded() {
+    console.log(userSelection);
+    // API call to retrive list of cocktails based on userDrink selection
     $.ajax({
         url: apiUrl + userDrink,
         success: function (data) {
@@ -123,49 +153,63 @@ function gameEnded() {
         }
     })
 
-    var gameOptions;
+    // Variable declarations to evaluate game options based on platform selected by user & answer to question four
+    var gameOptions = [];
     var gameEvenOps = [];
     var gameOddOps = [];
     var gameSelected;
 
-    if (gameQuestions[0] === "Dreamcast") {
-        gameOptions = dreamcast;
+    // If index 0 of userSelection array is equal to respective game platform, then set var gameOptions equal to respective game platform array
+    if (userSelection[0] === "Dreamcast") {
+        for (i = 0; i < dreamcast.length; i++) {
+            gameOptions.push(dreamcast[i].name);
+        }
         console.log(gameOptions);
-    } else if (gameQuestions[0] === "Genesis") {
-        gameOptions = genesis;
+    } else if (userSelection[0] === "Genesis") {
+        for (i = 0; i < genesis.length; i++) {
+            gameOptions.push(genesis[i].name);
+        }
         console.log(gameOptions);
-    } else if (gameQuestions[0] === "GameCube") {
-        gameOptions = gameCube;
+    } else if (userSelection[0] === "GameCube") {
+        for (i = 0; i < gameCube.length; i++) {
+            gameOptions.push(gameCube[i].name);
+        }
         console.log(gameOptions);
-    } else {
-        gameOptions = atari;
+    } else if (userSelection[0] === "Atari 5200") {
+        for (i = 0; i < atari.length; i++) {
+            gameOptions.push(atari[i].name);
+        }
         console.log(gameOptions);
     }
 
+    // For each index in the array gameOptions 
     for (i = 0; i < gameOptions.length; i++) {
 
+        // If the remainder for index divided by 2 is 0
         if (i % 2 === 0) {
-            gameEvenOps.push(gameOptions[i]);
+            gameEvenOps.push(gameOptions[i]); // Then push value of index in gameOptions to array gameEvenOps
         } else {
-            gameOddOps.push(gameOptions[i]);
+            gameOddOps.push(gameOptions[i]); // Else (i.e. if index is odd), push value of index in gameOptions to array gameOddOps
         }
     }
 
-    if (gameQuestions[3] === "Yes") {
-        gameSelected = Math.floor(Math.random() * gameEvenOps)
-    } else {
-        gameSelected = Math.floor(Math.random() * gameOddOps)
-    }
+    console.log(gameEvenOps);
+    console.log(gameOddOps);
 
-    questionTitle.text("You've finished!");
-    questionChoices.text("Your game is: " + gameSelected + "and your cocktail is: ...");
+    // If index 3 of array userSelection is equal to Yes 
+    if (userSelection[3] === "Yes") {
+        gameSelected = gameEvenOps[Math.floor(Math.random() * gameEvenOps.length)] // Set value of var gameSelected equal to random value from gameEvenOps array
+    } else {
+        gameSelected = gameOddOps[Math.floor(Math.random() * gameOddOps.length)] // Else (i.e. if answer is No), set value of var gameSelected equal to random value from gameOddOps array
+    }
+ 
+    console.log(gameSelected);
+
+    questionTitle.text("You've finished!"); // Set text value of questionTitle element equal to 'You've finished!'
+    questionChoices.text("Your game is: " + gameSelected + " and your cocktail is: ..."); // Set value of questionChoice element equal to gameSelected
 }
 
-displayQuestions();
-
 // STEPS:
-// Narrow down by genre
-// Randomly generate game from options
 // Create/Add image to buttons for questions
 
 // function drawBackground() {
