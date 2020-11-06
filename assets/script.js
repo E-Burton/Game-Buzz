@@ -4,13 +4,13 @@ var apiKey = "dc3b8a109d374b3399567c09cabd5e3e";
 var gameQuestions = [
     {q: "Which platform do you prefer?",
      c: ["Dreamcast", "Genesis", "GameCube", "Atari"]},
-    // {q: "What is your shoe size?",
-    //  c: textinput},
     {q: "How do you like to eat your potatoes?",
      c: ["Mashed", "French Fries", "Potato Skins", "Baked"]},
     {q: "Which video game character would you want to have a drink with?", 
      c: ["Ms. Pac-Man", "Leon", "Bowser", "Sonic"]},
-    {q: "Which alcohol do you like in your cocktails?",
+    {q: "Do you think that Carol Baskin killed her husband?",
+     c: ["Yes", "No"]},
+     {q: "Pick your poison!?",
      c: ["Gin", "Rum", "Tequila", "Vodka"]}
 ]
 
@@ -76,48 +76,48 @@ function nextQuestion() {
         currentIndex += 1;
         displayQuestions();
     } else {
-        questionTitle.text("What is your shoe size?");
-        questionChoices.text("");
-        questionChoices.attr("class", "row input-field col s6");
-
-        var inputIcon = $("<i>");
-        var input = $("<input>");
-        var enterButton = $("<button>");
-        
-        inputIcon.attr("class", "material-icons prefix");
-        inputIcon.text("directions_walk");
-        questionChoices.append(inputIcon);
-
-        input.attr({
-            id: "icon_prefix",
-            type: "text",
-            placeholder: "Shoe Size",
-        });
-        input.css({
-           "width": "85px",
-           "margin-right": "8px"
-        });
-        questionChoices.append(input);
-        
-        enterButton.attr({
-            class: "btn waves-effect waves-light",
-            type: "submit",
-            name: "action"
-        })
-
-        enterButton.text("Enter");
-        questionChoices.append(enterButton);
-        enterButton.on("click", function(){
-            // userSelection.push($(this).sibling.text()); 
-            // console.log(userSelection);
-            gameEnded();
-        });
+        gameEnded();
     }
 }
 
 function gameEnded() {
+
+    var gameOptions;
+    var gameEvenOps = [];
+    var gameOddOps = [];
+    var gameSelected;
+
+    if (gameQuestions[0] === "Dreamcast") {
+        gameOptions = dreamcast;
+        console.log(gameOptions);
+    } else if (gameQuestions[0] === "Genesis") {
+        gameOptions = genesis;
+        console.log(gameOptions);
+    } else if (gameQuestions[0] === "GameCube") {
+        gameOptions = gameCube;
+        console.log(gameOptions);
+    } else {
+        gameOptions = atari;
+        console.log(gameOptions);
+    }
+
+    for (i = 0; i < gameOptions.length; i++) {
+        
+        if (i % 2 === 0) {
+            gameEvenOps.push(gameOptions[i]);
+        } else {
+            gameOddOps.push(gameOptions[i]);
+        }
+    }
+
+    if (gameQuestions[3] === "Yes") {
+        gameSelected = Math.floor(Math.random() * gameEvenOps)
+    } else {
+        gameSelected = Math.floor(Math.random() * gameOddOps)
+    }
+
     questionTitle.text("You've finished!");
-    questionChoices.text("Your game and cocktail are: ...");
+    questionChoices.text("Your game is: " + gameSelected + "and your cocktail is: ...");
 }
 
 displayQuestions();
