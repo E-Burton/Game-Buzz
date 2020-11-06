@@ -158,7 +158,7 @@ function gameEnded() {
     }
 
     questionTitle.text("You've finished!");
-    questionChoices.text("Your game is: " + gameSelected + "and your cocktail is: ...");
+    questionChoices.text("Your game is: " + gameSelected + "and" + "Your cocktail is: " + userDrink);
 }
 
 displayQuestions();
