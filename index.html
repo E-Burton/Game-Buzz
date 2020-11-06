@@ -2,16 +2,56 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Game Buzz</title>
-</head>
-<header>
-    <h1>Game Buzz</h1>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0" />
+  <title>GameBuzz</title>
 
-</header>
+  <!-- CSS  -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection" />
+  <link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection" />
+</head>
 
 <body>
+  <div class="section no-pad-bot" id="index-banner">
+    <div class="container">
+      <br><br>
+      <h1 class="header center orange-text">GameBuzz</h1>
+      <div class="row center">
+        <h5 class="header col s12 light">Let's see exactly what drink you should have with what game you play</h5>
+        <div id="questionChoices"></div>
+      </div>
+      <div class="row center">
+        <a href="http://materializecss.com/getting-started.html" id="download-button"
+          class="btn-large waves-effect waves-light orange">Let's Drink</a>
+      </div>
+      <br><br>
+
+    </div>
+  </div>
+  <!-- Modal Trigger -->
+  <button data-target="modal1" class="btn modal-trigger">Confirm Age</button>
+
+  <!-- Modal Structure -->
+  <div id="modal1" class="modal">
+    <div class="modal-content">
+      <div class="row">
+        <div class="input-field col s6">
+          <input value="Alvin" id="first_name2" type="text" class="validate">
+          <label class="active" for="first_name2">Enter Age</label>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <a href="bruh" class="modal-close waves-effect waves-green btn-flat">Agree</a>
+    </div>
+  </div>
+  </div>
+  <!--  Scripts-->
+  <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  <script src="../age-verify.js"></script>
 
 </body>
 
