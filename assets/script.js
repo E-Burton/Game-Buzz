@@ -23,23 +23,35 @@
 // API & Question VARIABLE DECLARATIONS
 
 var apiKey = "dc3b8a109d374b3399567c09cabd5e3e";
+var apiUrl = "https://www.thecocktaildb.com/api/json/v1/1/filter.php?i="
 var gameQuestions = [
-    {q: "Which platform do you prefer?",
-     c: ["Dreamcast", "Genesis", "GameCube", "Atari"]},
-    {q: "How do you like to eat your potatoes?",
-     c: ["Mashed", "French Fries", "Potato Skins", "Baked"]},
-    {q: "Which video game character would you want to have a drink with?", 
-     c: ["Ms. Pac-Man", "Leon", "Bowser", "Sonic"]},
-    {q: "Do you think that Carol Baskin killed her husband?",
-     c: ["Yes", "No"]},
-     {q: "Pick your poison!?",
-     c: ["Gin", "Rum", "Tequila", "Vodka"]}
+    {
+        q: "Which platform do you prefer?",
+        c: ["Dreamcast", "Genesis", "GameCube", "Atari"]
+    },
+    {
+        q: "How do you like to eat your potatoes?",
+        c: ["Mashed", "French Fries", "Potato Skins", "Baked"]
+    },
+    {
+        q: "Which video game character would you want to have a drink with?",
+        c: ["Ms. Pac-Man", "Leon", "Bowser", "Sonic"]
+    },
+    {
+        q: "Do you think that Carol Baskin killed her husband?",
+        c: ["Yes", "No"]
+    },
+    {
+        q: "Pick your poison!?",
+        c: ["Gin", "Rum", "Tequila", "Vodka"]
+    }
 ]
 
 var dreamcast;
-var genesis; 
+var genesis;
 var gameCube;
 var atari;
+var userDrink;
 
 var questionTitle = $("#questionTitle");
 var questionChoices = $("#questionChoices");
@@ -74,7 +86,7 @@ function displayQuestions() {
     questionTitle.text(currentQuestion.q); // Setting questionTitle content equal to current index in gameQuestions array
     questionChoices.text(""); // Setting questionChoices content to empty string
     // Creating buttons for all answer choices for current question
-    $.each(currentQuestion.c, function(index, choice) {
+    $.each(currentQuestion.c, function (index, choice) {
         var choiceButton = $("<button>");
         choiceButton.attr("class", "waves-effect waves-light btn"); // Setting class attribute for choiceButton element
         choiceButton.css("marginBottom", "4px"); // Setting bottom margin for choiceButton element
@@ -84,7 +96,7 @@ function displayQuestions() {
 
         // When choiceButton is clicked for current question save text value of button in userSelection array
         choiceButton.on("click", function () {
-            userSelection.push($(this).text()); 
+            userSelection.push($(this).text());
             console.log(userSelection);
             setTimeout(nextQuestion, 500); // Call function nextQuestion after 0.5 seconds
         });
@@ -98,11 +110,18 @@ function nextQuestion() {
         currentIndex += 1;
         displayQuestions();
     } else {
+        userDrink = userSelection[4];
         gameEnded();
     }
 }
 
 function gameEnded() {
+    $.ajax({
+        url: apiUrl + userDrink,
+        success: function (data) {
+            console.log(data);
+        }
+    })
 
     var gameOptions;
     var gameEvenOps = [];
@@ -124,7 +143,7 @@ function gameEnded() {
     }
 
     for (i = 0; i < gameOptions.length; i++) {
-        
+
         if (i % 2 === 0) {
             gameEvenOps.push(gameOptions[i]);
         } else {
