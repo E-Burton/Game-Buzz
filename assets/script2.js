@@ -8,7 +8,7 @@ $(document).ready(function () {
     //Need to Finish!!!!
 
 
-    //VARIABLE DECLARATIONS
+    //API URL Variable
     var apiUrl = "https://www.thecocktaildb.com/api/json/v1/1/filter.php?i="
 
     var gameQuestions = [
