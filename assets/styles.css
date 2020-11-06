@@ -1,16 +1,22 @@
 #btn {
-    font-family: 'Press Start 2P', cursive;
+    font-family: 'Press Start 2P';
     background-color: black; 
     text-align: center;
     border-radius: 10000000000pc;
     }
 
 .gameTitle{
+    padding-top: 100px;
     display: flex;
     justify-content: center;
 
     }
+.description{
+    display: flex;
+    justify-content: center;
+    font-family: 'Press Start 2P';
 
+}
 body{
         background-color: rgba(0, 0, 0, 0.849);
         color: white;

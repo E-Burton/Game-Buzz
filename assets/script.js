@@ -157,8 +157,9 @@ function gameEnded() {
         gameSelected = Math.floor(Math.random() * gameOddOps)
     }
 
+
     questionTitle.text("You've finished!");
-    questionChoices.text("Your game is: " + gameSelected + "and" + "Your cocktail is: " + userDrink);
+    questionChoices.text("Your game is: " + gameSelected + "and" + "Your cocktail is: " + "...");
 }
 
 displayQuestions();
