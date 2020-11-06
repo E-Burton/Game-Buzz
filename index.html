@@ -10,52 +10,43 @@
     <link rel="stylesheet" href="assets/styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <title>Game Buzz</title>
-</head>
-<header>
-    <h1></h1>
 
-  <!-- CSS  -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  <link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection" />
-  <link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection" />
+    <!-- CSS  -->
+    <link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection" />
+    <link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection" />
+
+    <!-- Linking Materialize Icon Library -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
 </head>
 
 <body>
     <div class="gameTitle">
-        <a id="btn" class="floating btn-large pulse"><i class="material-icons blue-text">G
-                <a id="btn" class="floating btn-large pulse"><i class="material-icons red-text text-lighten-2">A
-                        <a id="btn" class="floating btn-large pulse"><i
-                                class="material-icons purple-text text-lighten-2">M
-                                <a id="btn" class="floating btn-large pulse"><i class="material-icons yellow-text">E
-                                        <a id="btn" class="floating btn-large pulse"><i
-                                                class="material-icons green-text text-lighten-2">B
-                                                <a id="btn" class="floating btn-large pulse"><i
-                                                        class="material-icons pink-text">U
-                                                        <a id="btn" class="floating btn-large pulse"><i
-                                                                class="material-icons cyan-text text-lighten-2">Z
-                                                                <a id="btn" class="floating btn-large pulse"><i
-                                                                        class="material-icons orange-text text-darken-2">Z
-                                                                    </i></a>
+        <a id="btn" class="floating btn-large pulse"><i class="material-icons blue-text">G</i></a>
+        <a id="btn" class="floating btn-large pulse"><i class="material-icons red-text text-lighten-2">A</i></a>
+        <a id="btn" class="floating btn-large pulse"><i class="material-icons purple-text text-lighten-2">M</i></a>
+        <a id="btn" class="floating btn-large pulse"><i class="material-icons yellow-text">E</i></a>
+        <a id="btn" class="floating btn-large pulse"><i class="material-icons green-text text-lighten-2">B</i></a>
+        <a id="btn" class="floating btn-large pulse"><i class="material-icons pink-text">U</i></a>
+        <a id="btn" class="floating btn-large pulse"><i class="material-icons cyan-text text-lighten-2">Z</i></a>
+        <a id="btn" class="floating btn-large pulse"><i class="material-icons orange-text text-darken-2">Z</i></a>
     </div>
   <div class="section no-pad-bot" id="index-banner">
     <div class="container">
       <br><br>
-      <h1 class="header center orange-text">GameBuzz</h1>
       <div class="row center">
-        <h5 class="header col s12 light">Let's see exactly what drink you should have with what game you play</h5>
+        <h5 id="questionTitle" class="header col s12 light">Let's see exactly what drink you should have with what game you play</h5>
         <div id="questionChoices"></div>
       </div>
       <div class="row center">
-        <a href="http://materializecss.com/getting-started.html" id="download-button"
-          class="btn-large waves-effect waves-light orange">Let's Drink</a>
+        <button id="startGame" class="btn-large waves-effect waves-light orange">Let's Drink</button>
       </div>
       <br><br>
 
     </div>
   </div>
   <!-- Modal Trigger -->
-  <button data-target="modal1" class="btn modal-trigger">Confirm Age</button>
+  <!-- <button data-target="modal1" class="btn modal-trigger">Confirm Age</button> -->
 
   <!-- Modal Structure -->
   <div id="modal1" class="modal">
@@ -72,13 +63,10 @@
     </div>
   </div>
   </div>
-  <!--  Scripts-->
-  <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-  <script src="../age-verify.js"></script>
-
+    <!--  Scripts-->
+    <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-    <script src="assets/script.js"></script>
+    <script src="./assets/script.js"></script>
 </body>
 
 </html>
