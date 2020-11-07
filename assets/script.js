@@ -20,6 +20,7 @@
 //         }
 //     }
 
+
 // VARIABLE DECLARATIONS for Game Questions and API's
 
 var apiKey = "dc3b8a109d374b3399567c09cabd5e3e";
