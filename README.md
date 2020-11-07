@@ -1,5 +1,10 @@
 # Game-Buzz
 
+A place where your love of vintage gaming is matched with a delicious cocktail suggestion for you to enjoy, simply answer a few questions and let us do the rest.
+
+USER STORY:
+
+
 ## Additional Resources used for Finished Project
 
 * [jQuery.each()](https://api.jquery.com/JQuery.each/)
