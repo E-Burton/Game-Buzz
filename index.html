@@ -10,14 +10,12 @@
   <link rel="stylesheet" href="assets/styles.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
   <title>Game Buzz</title>
-  <!-- Linking Materialize Icon Library -->
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
 </head>
 
 <body>
   <div class="gameTitle">
-    <a id="btn" class="floating btn-large pulse"><i class="material-icons blue-text font-family: 'Press Start 2P', cursive;">G</i></a>
+    <a id="btn" class="floating btn-large pulse"><i class="material-icons blue-text">G</i></a>
     <a id="btn" class="floating btn-large pulse"><i class="material-icons red-text text-lighten-2">A</i></a>
     <a id="btn" class="floating btn-large pulse"><i class="material-icons purple-text text-lighten-2">M</i></a>
     <a id="btn" class="floating btn-large pulse"><i class="material-icons yellow-text">E</i></a>
@@ -30,12 +28,17 @@
     <div class="container">
       <br><br>
       <div class="row center">
+        <style>
+          h5 {
+            font-size: medium;
+          }
+        </style>
         <h5 id="questionTitle" class="header col s12 light">Want to know what drink you should have with what
           game you play?</h5>
         <div id="questionChoices">Click 'Let's Drink' to get started!</div>
       </div>
       <div class="row center">
-        <button id="startGame" class="btn-large waves-effect waves-light orange">Let's Drink</button>
+        <button id="startGame" class="floating btn-large pulse black">Let's Drink</button>
       </div>
       <br><br>
 
