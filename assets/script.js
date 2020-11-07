@@ -160,55 +160,48 @@ function nextQuestion() {
             url: apiUrl + userDrink,
             success: function (data) {
                 console.log(data);
-                drinksArray = data.drinks; // Store value of data.drinks in array drinksArray
-                console.log(drinksArray);
-                pullDrinks(); // Call function pullDrinks
+                drinksArray = data; // Store value of data.drinks in array drinksArray
+                console.log(drinksArray.drinks[0].strDrink);
+                randomIndex = Math.floor(Math.random() * drinksArray.drinks.length);
+                drinkSelected = drinksArray.drinks[randomIndex].strDrink;
+                console.log(drinkSelected);
+                gameEnded();
             }
         })
-        gameEnded(); // Call function gameEnded once all questions have been displayed
     }
 }
 
 // Create function called pullDrinks
-function pullDrinks() {
+// function pullDrinks(drinksArray) {
     // For each index of drinksArray push drink name (strDrink) to drinkNames array
-    for (i = 0; i < drinksArray.length; i++) {
-        drinkNames.push(drinksArray[i].strDrink);
-    }
+    // for (i = 0; i < drinksArray.length; i++) {
+    //     drinkNames.push(drinksArray[i].strDrink);
+    // }
 
+    // drinkSelected = drinksArray.drinks[0].strDrink;
+    // drinkSelected = drinksArray.drinks[Math.floor(Math.random() * drinksArray.length) + 1].strDrink
     // For each index in the array drinkNames
-    for (i = 0; i < drinkNames.length; i++) {
-        // If the remainder for index divided by 2 is 0
-        if (i % 2 === 0) {
-            drinkOpsEven.push(drinkNames[i]); // Then push value of index in drinkNames to array drinkOpsEven
-        } else {
-            drinkOpsOdd.push(drinkNames[i]); // Else, push value of index in drinkNames to array drinkOpsOdd
-        }
-    }
+    // for (i = 0; i < drinkNames.length; i++) {
+    //     // If the remainder for index divided by 2 is 0
+    //     if (i % 2 === 0) {
+    //         drinkOpsEven.push(drinkNames[i]); // Then push value of index in drinkNames to array drinkOpsEven
+    //     } else {
+    //         drinkOpsOdd.push(drinkNames[i]); // Else, push value of index in drinkNames to array drinkOpsOdd
+    //     }
+    // }
 
-    // If index 3 of array userSelection is equal to Yes 
-    if (userSelection[3] === "Yes") {
-        // Set value of var drinkSelected equal to random value from drinkEvenOps array
-        drinkSelected = drinkOpsEven[Math.floor(Math.random() * drinkOpsEven.length)];
-    } else {
-        drinkSelected = drinkOpsOdd[Math.floor(Math.random() * drinkOpsOdd.length)]; // Else (i.e. if answer is No), set value of var drinkSelected to random value from drinkOddOps
-    }
-}
+    // // If index 3 of array userSelection is equal to Yes 
+    // if (userSelection[3] === "Yes") {
+    //     // Set value of var drinkSelected equal to random value from drinkEvenOps array
+    //     drinkSelected = drinkOpsEven[Math.floor(Math.random() * drinkOpsEven.length)];
+    // } else {
+    //     drinkSelected = drinkOpsOdd[Math.floor(Math.random() * drinkOpsOdd.length)]; // Else (i.e. if answer is No), set value of var drinkSelected to random value from drinkOddOps
+    // }
+// }
 
 // Create function called gameEnded
 function gameEnded() {
     console.log(userSelection);
-
-    // // API call to retrive list of cocktails based on userDrink selection
-    // $.ajax({
-    //     url: apiUrl + userDrink,
-    //     success: function (data) {
-    //         console.log(data);
-    //         drinksArray = data.drinks; // Store value of data.drinks in array drinksArray
-    //         console.log(drinksArray);
-    //         pullDrinks(); // Call function pullDrinks
-    //     }
-    // })
 
     // If index 0 of userSelection array is equal to respective game platform, then set var gameOptions equal to respective game platform array
     if (userSelection[0] === "Dreamcast") {
@@ -250,17 +243,6 @@ function gameEnded() {
         gameSelected = gameOddOps[Math.floor(Math.random() * gameOddOps.length)]; // Else (i.e. if answer is No), set value of var gameSelected equal to random value from gameOddOps array
         // drinkSelected = drinkOpsOdd[Math.floor(Math.random() * drinkOpsOdd.length)]; // Else (i.e. if answer is No), set value of var drinkSelected to random value from drinkOddOps
     }
-
-    console.log(gameOptions);
-    console.log(drinkNames);
-    console.log(gameEvenOps);
-    console.log(gameOddOps);
-    console.log(drinkOpsEven);
-    console.log(drinkOpsOdd);
-    console.log(drinkSelected);
-    console.log(drinkNames.length)
-    console.log(drinkOpsEven.length);
-    console.log(drinkOpsOdd.length);
 
     questionTitle.text("You've finished!"); // Set text value of questionTitle element equal to 'You've finished!'
     questionChoices.text("Your game is: " + gameSelected + " and your cocktail is: " + drinkSelected); // Set value of questionChoice element equal to gameSelected and drinkSelected
