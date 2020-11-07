@@ -20,6 +20,11 @@
 //         }
 //     }
 
+$(document).ready(function() {
+    $("#modal1").modal({dismissible: false});
+    $("#modal1").modal("open");
+})
+
 // VARIABLE DECLARATIONS for Game Questions and API's
 
 var apiKey = "dc3b8a109d374b3399567c09cabd5e3e";
@@ -52,18 +57,30 @@ var gameQuestions = [
     }
 ]
 
-var dreamcast;
-var genesis;
-var gameCube;
-var atari;
-var userDrink;
-
 var questionTitle = $("#questionTitle");
 var questionChoices = $("#questionChoices");
 var startGame = $("#startGame");
 
 var currentIndex = 0;
 var userSelection = [];
+
+// Variable declarations to evaluate drink options based on drink selected
+var userDrink;
+var drinksArray = [];
+var drinkNames = [];
+var drinkOpsEven = [];
+var drinkOpsOdd = [];
+var drinkSelected;
+
+// Variable declarations to evaluate game options based on platform selected 
+var dreamcast;
+var genesis;
+var gameCube;
+var atari;
+var gameOptions = [];
+var gameEvenOps = [];
+var gameOddOps = [];
+var gameSelected;
 
 // Adding event listener for when startGame (i.e. Let's Drink) button is clicked
 startGame.on("click", function() {
@@ -138,48 +155,78 @@ function nextQuestion() {
     } else {
         // Set var userDrink equal to value for index 4 in userSelection array (i.e. question five for alchol choice)
         userDrink = userSelection[4];
+        // API call to retrive list of cocktails based on userDrink selection
+        $.ajax({
+            url: apiUrl + userDrink,
+            success: function (data) {
+                console.log(data);
+                drinksArray = data.drinks; // Store value of data.drinks in array drinksArray
+                console.log(drinksArray);
+                pullDrinks(); // Call function pullDrinks
+            }
+        })
         gameEnded(); // Call function gameEnded once all questions have been displayed
+    }
+}
+
+// Create function called pullDrinks
+function pullDrinks() {
+    // For each index of drinksArray push drink name (strDrink) to drinkNames array
+    for (i = 0; i < drinksArray.length; i++) {
+        drinkNames.push(drinksArray[i].strDrink);
+    }
+
+    // For each index in the array drinkNames
+    for (i = 0; i < drinkNames.length; i++) {
+        // If the remainder for index divided by 2 is 0
+        if (i % 2 === 0) {
+            drinkOpsEven.push(drinkNames[i]); // Then push value of index in drinkNames to array drinkOpsEven
+        } else {
+            drinkOpsOdd.push(drinkNames[i]); // Else, push value of index in drinkNames to array drinkOpsOdd
+        }
+    }
+
+    // If index 3 of array userSelection is equal to Yes 
+    if (userSelection[3] === "Yes") {
+        // Set value of var drinkSelected equal to random value from drinkEvenOps array
+        drinkSelected = drinkOpsEven[Math.floor(Math.random() * drinkOpsEven.length)];
+    } else {
+        drinkSelected = drinkOpsOdd[Math.floor(Math.random() * drinkOpsOdd.length)]; // Else (i.e. if answer is No), set value of var drinkSelected to random value from drinkOddOps
     }
 }
 
 // Create function called gameEnded
 function gameEnded() {
     console.log(userSelection);
-    // API call to retrive list of cocktails based on userDrink selection
-    $.ajax({
-        url: apiUrl + userDrink,
-        success: function (data) {
-            console.log(data);
-        }
-    })
 
-    // Variable declarations to evaluate game options based on platform selected by user & answer to question four
-    var gameOptions = [];
-    var gameEvenOps = [];
-    var gameOddOps = [];
-    var gameSelected;
+    // // API call to retrive list of cocktails based on userDrink selection
+    // $.ajax({
+    //     url: apiUrl + userDrink,
+    //     success: function (data) {
+    //         console.log(data);
+    //         drinksArray = data.drinks; // Store value of data.drinks in array drinksArray
+    //         console.log(drinksArray);
+    //         pullDrinks(); // Call function pullDrinks
+    //     }
+    // })
 
     // If index 0 of userSelection array is equal to respective game platform, then set var gameOptions equal to respective game platform array
     if (userSelection[0] === "Dreamcast") {
         for (i = 0; i < dreamcast.length; i++) {
             gameOptions.push(dreamcast[i].name);
         }
-        console.log(gameOptions);
     } else if (userSelection[0] === "Genesis") {
         for (i = 0; i < genesis.length; i++) {
             gameOptions.push(genesis[i].name);
         }
-        console.log(gameOptions);
     } else if (userSelection[0] === "GameCube") {
         for (i = 0; i < gameCube.length; i++) {
             gameOptions.push(gameCube[i].name);
         }
-        console.log(gameOptions);
     } else if (userSelection[0] === "Atari 5200") {
         for (i = 0; i < atari.length; i++) {
             gameOptions.push(atari[i].name);
         }
-        console.log(gameOptions);
     }
 
     // For each index in the array gameOptions 
@@ -193,24 +240,31 @@ function gameEnded() {
         }
     }
 
-    console.log(gameEvenOps);
-    console.log(gameOddOps);
-
     // If index 3 of array userSelection is equal to Yes 
     if (userSelection[3] === "Yes") {
-        gameSelected = gameEvenOps[Math.floor(Math.random() * gameEvenOps.length)] // Set value of var gameSelected equal to random value from gameEvenOps array
+        // Set value of var gameSelected equal to random value from gameEvenOps array
+        gameSelected = gameEvenOps[Math.floor(Math.random() * gameEvenOps.length)]; 
+        // Set value of var drinkSelected equal to random value from drinkEvenOps array
+        // drinkSelected = drinkOpsEven[Math.floor(Math.random() * drinkOpsEven.length)];
     } else {
-        gameSelected = gameOddOps[Math.floor(Math.random() * gameOddOps.length)] // Else (i.e. if answer is No), set value of var gameSelected equal to random value from gameOddOps array
+        gameSelected = gameOddOps[Math.floor(Math.random() * gameOddOps.length)]; // Else (i.e. if answer is No), set value of var gameSelected equal to random value from gameOddOps array
+        // drinkSelected = drinkOpsOdd[Math.floor(Math.random() * drinkOpsOdd.length)]; // Else (i.e. if answer is No), set value of var drinkSelected to random value from drinkOddOps
     }
- 
-    console.log(gameSelected);
+
+    console.log(gameOptions);
+    console.log(drinkNames);
+    console.log(gameEvenOps);
+    console.log(gameOddOps);
+    console.log(drinkOpsEven);
+    console.log(drinkOpsOdd);
+    console.log(drinkSelected);
+    console.log(drinkNames.length)
+    console.log(drinkOpsEven.length);
+    console.log(drinkOpsOdd.length);
 
     questionTitle.text("You've finished!"); // Set text value of questionTitle element equal to 'You've finished!'
-    questionChoices.text("Your game is: " + gameSelected + " and your cocktail is: ..."); // Set value of questionChoice element equal to gameSelected
+    questionChoices.text("Your game is: " + gameSelected + " and your cocktail is: " + drinkSelected); // Set value of questionChoice element equal to gameSelected and drinkSelected
 }
-
-// STEPS:
-// Create/Add image to buttons for questions
 
 // function drawBackground() {
 //     context.strokeStyle = '#001900';

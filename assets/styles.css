@@ -16,3 +16,11 @@ body{
         color: white;
     }
 
+.modal {
+    color: black;
+    /* width: 40%; */
+}
+
+.modal-footer {
+    margin-top: -55px;
+}
