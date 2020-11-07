@@ -24,3 +24,7 @@ body{
 .modal-footer {
     margin-top: -55px;
 }
+
+#questionTitle {
+    font-family: 'Press Start 2P', cursive;
+}
